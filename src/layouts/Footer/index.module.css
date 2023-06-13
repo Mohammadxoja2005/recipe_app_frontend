@@ -1,0 +1,7 @@
+.footer {
+  @apply py-4 bg-white text-center;
+}
+
+.footerText {
+  @apply text-gray-600;
+}

@@ -1,0 +1,7 @@
+.header {
+  @apply py-4;
+}
+
+.textHeading {
+  @apply text-2xl font-bold;
+}
