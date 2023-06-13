@@ -1,0 +1,47 @@
+.container {
+  @apply mx-auto px-4;
+}
+
+.header {
+  @apply py-4;
+}
+
+.textHeading {
+  @apply text-2xl font-bold;
+}
+
+.searchInput {
+  @apply border border-gray-400 rounded px-4 py-2 w-full sm:w-auto;
+}
+
+.selectInput {
+  @apply border border-gray-400 rounded px-4 py-2;
+}
+
+.recipeCard {
+  @apply border border-gray-400 rounded p-4;
+}
+
+.recipeImage {
+  @apply w-full h-48 object-cover mb-4;
+}
+
+.recipeName {
+  @apply text-xl font-bold mb-2;
+}
+
+.recipeDetails {
+  @apply text-gray-600 mt-2;
+}
+
+.viewRecipeButton {
+  @apply mt-4 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded;
+}
+
+.footer {
+  @apply py-4 bg-white text-center;
+}
+
+.footerText {
+  @apply text-gray-600;
+}
