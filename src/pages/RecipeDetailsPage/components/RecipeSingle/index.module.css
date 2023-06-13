@@ -1,0 +1,27 @@
+.image {
+  @apply w-full object-cover;
+}
+
+.name {
+  @apply text-2xl font-bold mt-20;
+}
+
+.description {
+  @apply mt-10;
+}
+
+.ingredients {
+  @apply mt-20;
+}
+
+.ingredients h3 {
+  @apply text-xl font-bold mb-10;
+}
+
+.ingredients ul {
+  @apply list-disc ml-20;
+}
+
+.cookTime {
+  @apply mt-20;
+}
