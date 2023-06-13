@@ -3,7 +3,7 @@ import { FC, useState, ChangeEvent } from 'react'
 // import styles from "./index.module.scss";
 
 
-const RecipeAppMainPage = () => {
+const RecipeAppMainPage: FC = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const [sortOption, setSortOption] = useState('');
 
@@ -52,7 +52,7 @@ const RecipeAppMainPage = () => {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                {[1, 2, 3, 4, 5, 6, 7].map((recipe) => (
+                {[1, 2, 3, 4, 5, 6, 7].map(() => (
                     <div
                         //   key={recipe.id}
                         className="border border-gray-400 rounded p-4"
