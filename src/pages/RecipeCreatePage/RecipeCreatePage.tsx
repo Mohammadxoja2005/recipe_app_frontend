@@ -12,7 +12,7 @@ const RecipeCreatePage: FC = () => {
     const [recipes, setRecipes] = useState<any>([]);
 
     useEffect(() => {
-        axios.get('http://backend.oliy-nemat.uz/recipe/').then((response) => {
+        axios.get('http://backend.oliy-nemat.uz/recipe/').then((response: any) => {
             setRecipes(response.data)
         })
     }, [])
