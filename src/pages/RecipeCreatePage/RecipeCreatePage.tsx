@@ -5,7 +5,7 @@ import styles from './index.module.css';
 const RecipeCreatePage: FC = () => {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
-    // const [image, setImage] = useState('');
+    const [image, setImage] = useState('');
     const [cookTime, setCookTime] = useState('');
     const [ingredients, setIngredients] = useState('');
 
@@ -38,8 +38,8 @@ const RecipeCreatePage: FC = () => {
                     <textarea value={description} onChange={(e) => setDescription(e.target.value)} className={styles.input}></textarea>
                 </div>
                 <div>
-                    <label className={styles.label}>Image Upload:</label>
-                    <input type="file" className={styles.input} />
+                    <label className={styles.label}>Image URL:</label>
+                    <input type="text" value={image} onChange={(e) => setImage(e.target.value)} className={styles.input} />
                 </div>
                 <div>
                     <label className={styles.label}>Cook Time:</label>
