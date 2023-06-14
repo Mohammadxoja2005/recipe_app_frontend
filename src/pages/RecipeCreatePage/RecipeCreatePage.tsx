@@ -14,7 +14,6 @@ const RecipeCreatePage: FC = () => {
             <Header />
             <RecipeForm />
             <Footer />
-
         </div>
     );
 };
