@@ -1,7 +1,6 @@
-import { FC, useState, ChangeEvent, useEffect } from 'react';
+import { FC, useState, ChangeEvent } from 'react';
 // styles
 import styles from './index.module.css';
-import axios from "axios";
 
 const RecipeCreatePage: FC = () => {
     const [name, setName] = useState('');
@@ -9,15 +8,6 @@ const RecipeCreatePage: FC = () => {
     // const [image, setImage] = useState('');
     const [cookTime, setCookTime] = useState('');
     const [ingredients, setIngredients] = useState('');
-    const [recipes, setRecipes] = useState<any>([]);
-
-    useEffect(() => {
-        axios.get('http://backend.oliy-nemat.uz/recipe/').then((response: any) => {
-            setRecipes(response.data)
-        })
-    }, [])
-
-    console.log(recipes);
 
     const handleSubmit = (e: ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
