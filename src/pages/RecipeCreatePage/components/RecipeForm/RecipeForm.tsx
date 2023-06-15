@@ -27,23 +27,23 @@ const RecipeForm: FC = () => {
             <form onSubmit={handleSubmit}>
                 <div>
                     <label className={styles.label}>Name:</label>
-                    <input type="text" value={name} onChange={(e) => setName(e.target.value)} className={styles.input} />
+                    <input required type="text" value={name} onChange={(e) => setName(e.target.value)} className={styles.input} />
                 </div>
                 <div>
                     <label className={styles.label}>Description:</label>
-                    <textarea value={description} onChange={(e) => setDescription(e.target.value)} className={styles.input}></textarea>
+                    <textarea required value={description} onChange={(e) => setDescription(e.target.value)} className={styles.input}></textarea>
                 </div>
                 <div>
                     <label className={styles.label}>Image URL:</label>
-                    <input type="text" value={image} onChange={(e) => setImage(e.target.value)} className={styles.input} />
+                    <input required type="text" value={image} onChange={(e) => setImage(e.target.value)} className={styles.input} />
                 </div>
                 <div>
                     <label className={styles.label}>Cook Time:</label>
-                    <input type="text" value={cookTime} onChange={(e) => setCookTime(e.target.value)} className={styles.input} />
+                    <input required type="text" value={cookTime} onChange={(e) => setCookTime(e.target.value)} className={styles.input} />
                 </div>
                 <div>
                     <label className={styles.label}>Ingredients (separated by comma):</label>
-                    <input placeholder='salt, water, ...' type="text" value={ingredients} onChange={(e) => setIngredients(e.target.value)} className={styles.input} />
+                    <input required placeholder='salt, water, ...' type="text" value={ingredients} onChange={(e) => setIngredients(e.target.value)} className={styles.input} />
                 </div>
 
                 {isLoading ?
