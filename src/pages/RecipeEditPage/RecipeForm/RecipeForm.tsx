@@ -9,10 +9,13 @@ import { fetchOneRecipe, editRecipe } from '../../../store/features/recipeSlice'
 import { Dispatch } from 'redux';
 // types
 import { editRecipeType } from '../../../types/Recipe';
+// react-router-dom
+import { useNavigate } from 'react-router-dom';
 
 const RecipeForm: FC = () => {
     const { id } = useParams();
     const dispatch: Dispatch<any> = useDispatch();
+    const navigate = useNavigate();
 
     const [idEdit, setIdEdit] = useState<number>(0)
     const [name, setName] = useState<string>('...');
@@ -76,7 +79,11 @@ const RecipeForm: FC = () => {
                     ?
                     <button className={styles.button}>Changing Recipe...</button>
                     :
-                    <button type="submit" className={styles.button}>Edit Recipe</button>
+                    <>
+                        <button type="submit" className={styles.button}>Edit Recipe</button>
+                        <button onClick={() => navigate('/')} className={styles.button}>Go to Main Page</button>
+                    </>
+
                 }
             </form>
         </div>

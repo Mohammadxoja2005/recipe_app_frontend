@@ -5,9 +5,13 @@ import styles from "./index.module.css"
 import { useSelector, useDispatch } from 'react-redux';
 import { postRecipe } from '../../../../store/features/recipeSlice';
 import { Dispatch } from "redux";
+// react-router-dom
+import { useNavigate } from 'react-router-dom';
 
 const RecipeForm: FC = () => {
     const dispatch: Dispatch<any> = useDispatch()
+    const navigate = useNavigate(); 
+
     const [name, setName] = useState<string>('');
     const [description, setDescription] = useState<string>('');
     const [image, setImage] = useState<string>('');
@@ -57,7 +61,11 @@ const RecipeForm: FC = () => {
                 {isLoading ?
                     <button className={styles.button}>Sending data...</button>
                     :
-                    <button type="submit" className={styles.button}>Create Recipe</button>
+                    <>
+                        <button type="submit" className={styles.button}>Create Recipe</button>
+                        <button onClick={() => navigate('/')}  className={styles.button}>Go to Main Page</button>
+                    </>
+
                 }
 
             </form>
