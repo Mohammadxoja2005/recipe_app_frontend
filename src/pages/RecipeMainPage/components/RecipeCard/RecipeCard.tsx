@@ -7,9 +7,12 @@ import { fetchAllRecipes } from '../../../../store/features/recipeSlice';
 // types
 import { Recipe } from '../../../../types/Recipe';
 import { Dispatch } from 'redux';
+// react-router-dom
+import { useNavigate } from 'react-router-dom';
 
 const RecipeCard: FC = () => {
     const dispatch: Dispatch<any> = useDispatch();
+    const navigate = useNavigate();
 
     useEffect(() => {
         dispatch(fetchAllRecipes())
@@ -17,8 +20,6 @@ const RecipeCard: FC = () => {
 
     const allRecipes: Array<Recipe> = useSelector((state: any) => state.recipe.allRecipes);
     const isLoading: boolean = useSelector((state: any) => state.recipe.isLoading);
-
-    console.log(isLoading)
 
     return (
         <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4`}>
@@ -35,7 +36,7 @@ const RecipeCard: FC = () => {
                             Time: {recipe.cook_time}
 
                         </p>
-                        <button className={styles.viewRecipeButton}>View Recipe</button>
+                        <button onClick={() => navigate(`/detail/${recipe.id}`)} className={styles.viewRecipeButton}>View Recipe</button>
                     </div>
                 )) : <div>Loading...</div>}
         </div>

@@ -12,7 +12,7 @@ export const routes = createBrowserRouter([
 
     },
     {
-        path: "/detail",
+        path: "/detail/:id",
         element: <RecipeDetailsPage />
     },
     {

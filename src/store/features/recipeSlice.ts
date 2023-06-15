@@ -10,10 +10,17 @@ export const fetchAllRecipes = createAsyncThunk<Array<Recipe>>('/recipes/fetch',
         return response.data;
     })
 
-const initialState: { isLoading: boolean, allRecipes: Array<Recipe> }
+export const fetchOneRecipe = createAsyncThunk<Array<Recipe>, string>('/recipes/detail/fetch',
+    async (id) => {
+        const response: AxiosResponse<Array<Recipe>> = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/recipe/${id}`)
+        return response.data;
+    })
+
+const initialState: { isLoading: boolean, allRecipes: Array<Recipe>, singleRecipe: Array<Recipe> }
     = {
     isLoading: false,
-    allRecipes: []
+    allRecipes: [],
+    singleRecipe: []
 }
 
 const recipe = createSlice({
@@ -31,6 +38,17 @@ const recipe = createSlice({
             state.allRecipes = action.payload;
         });
         builder.addCase(fetchAllRecipes.rejected, (state) => {
+            state.isLoading = true;
+        });
+
+        builder.addCase(fetchOneRecipe.pending, (state) => {
+            state.isLoading = true;
+        });
+        builder.addCase(fetchOneRecipe.fulfilled, (state, action: PayloadAction<Array<Recipe>>) => {
+            state.isLoading = false;
+            state.singleRecipe = action.payload;
+        });
+        builder.addCase(fetchOneRecipe.rejected, (state) => {
             state.isLoading = true;
         });
     }
