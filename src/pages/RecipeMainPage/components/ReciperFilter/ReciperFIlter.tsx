@@ -1,8 +1,11 @@
 import { FC, useState, ChangeEvent } from 'react'
 // styles
 import styles from "./index.module.css";
+// react-router-dom
+import { useNavigate } from 'react-router-dom';
 
 const ReciperFIlter: FC = () => {
+    const navigate = useNavigate();
     const [searchQuery, setSearchQuery] = useState('');
     const [sortOption, setSortOption] = useState('');
 
@@ -27,7 +30,9 @@ const ReciperFIlter: FC = () => {
                 />
             </div>
             <div>
-                <select
+                <button onClick={() => navigate(`/create`)} className={styles.viewRecipeButton}>Create Recipe</button>
+
+                {/* <select
                     className={styles.selectInput}
                     value={sortOption}
                     onChange={handleSortChange}
@@ -35,7 +40,7 @@ const ReciperFIlter: FC = () => {
                     <option value="">Sort by</option>
                     <option value="name">Name</option>
                     <option value="cookTime">Cooking Time</option>
-                </select>
+                </select> */}
             </div>
         </div>
     )

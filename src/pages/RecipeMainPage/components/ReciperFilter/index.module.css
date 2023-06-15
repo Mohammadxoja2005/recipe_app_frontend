@@ -1,7 +1,11 @@
 .searchInput {
-    @apply border border-gray-400 rounded px-4 py-2 w-full sm:w-auto;
-  }
-  
-  .selectInput {
-    @apply border border-gray-400 rounded px-4 py-2;
-  }
+  @apply border border-gray-400 rounded px-4 py-2 w-full sm:w-auto;
+}
+
+.selectInput {
+  @apply border border-gray-400 rounded px-4 py-2;
+}
+
+.viewRecipeButton {
+  @apply mt-4 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded;
+}

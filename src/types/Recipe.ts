@@ -3,6 +3,6 @@ export interface Recipe {
     img: string,
     name: string,
     description: string,
-    ingredients: string,
+    ingredients: Array<string>,
     cook_time: string
 }

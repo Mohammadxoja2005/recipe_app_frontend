@@ -23,7 +23,6 @@ const RecipeSingle: FC = () => {
     const singleRecipe: Array<Recipe> = useSelector((state: any) => state.recipe.singleRecipe)
     const isLoading: boolean = useSelector((state: any) => state.recipe.isLoading);
 
-
     return (
         <>
             {!isLoading ?
@@ -36,9 +35,11 @@ const RecipeSingle: FC = () => {
                             <div className={styles.ingredients}>
                                 <h3>Ingredients:</h3>
                                 <ul>
-                                    {/* {recipe.ingredients.map((ingredient, index) => (
-                                        <li key={index}>{ingredient}</li>
-                                    ))} */}
+                                    {
+                                        recipe.ingredients.map((ingredient, index) => (
+                                            <li key={index}>{ingredient}</li>
+                                        ))
+                                    }
                                 </ul>
                             </div>
                             <p className={styles.cookTime}>Cook Time: {recipe.cook_time}</p>
