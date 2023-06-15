@@ -7,15 +7,15 @@ import { useNavigate } from 'react-router-dom';
 const ReciperFIlter: FC = () => {
     const navigate = useNavigate();
     const [searchQuery, setSearchQuery] = useState('');
-    const [sortOption, setSortOption] = useState('');
+    // const [sortOption, setSortOption] = useState('');
 
     const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
         setSearchQuery(event.target.value);
     };
 
-    const handleSortChange = (event: ChangeEvent<HTMLSelectElement>) => {
-        setSortOption(event.target.value);
-    };
+    // const handleSortChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    //     setSortOption(event.target.value);
+    // };
 
     return (
 
