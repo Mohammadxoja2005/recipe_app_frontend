@@ -26,6 +26,13 @@ export const editRecipe = createAsyncThunk('/recipes/edit',
         return axios.put(`${import.meta.env.VITE_BACKEND_URL}/recipe/edit/${data.id}`, data)
     })
 
+export const deleteRecipe = createAsyncThunk('/recipes/delete',
+    (id: number) => {
+        return axios.delete(`${import.meta.env.VITE_BACKEND_URL}/recipe/delete/${id}`).then((response) => {
+            console.log(response)
+        })
+    })
+
 const initialState: { isLoading: boolean, isLoadingEditData: boolean, allRecipes: Array<Recipe>, singleRecipe: Array<Recipe> }
     = {
     isLoading: false,
@@ -81,6 +88,17 @@ const recipe = createSlice({
         });
         builder.addCase(editRecipe.rejected, (state) => {
             state.isLoadingEditData = false;
+        });
+
+
+        builder.addCase(deleteRecipe.pending, (state) => {
+            state.isLoading = true;
+        });
+        builder.addCase(deleteRecipe.fulfilled, (state) => {
+            state.isLoading = false;
+        });
+        builder.addCase(deleteRecipe.rejected, (state) => {
+            state.isLoading = false;
         });
     }
 })

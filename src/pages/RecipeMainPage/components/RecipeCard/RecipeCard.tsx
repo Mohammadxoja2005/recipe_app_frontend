@@ -3,7 +3,7 @@ import { FC, useEffect } from 'react'
 import styles from "./index.module.css";
 // react-redux
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchAllRecipes } from '../../../../store/features/recipeSlice';
+import { fetchAllRecipes, deleteRecipe } from '../../../../store/features/recipeSlice';
 // types
 import { Recipe } from '../../../../types/Recipe';
 import { Dispatch } from 'redux';
@@ -38,6 +38,10 @@ const RecipeCard: FC = () => {
                         </p>
                         <button onClick={() => navigate(`/detail/${recipe.id}`)} className={styles.viewRecipeButton}>View Recipe</button>
                         <button onClick={() => navigate(`/edit/${recipe.id}`)} className={styles.viewRecipeButton}>Edit Recipe</button>
+                        <button onClick={() => {
+                            dispatch(deleteRecipe(recipe.id))
+                            window.location.reload();
+                        }} className={styles.deleteRecipeButton}>Delete Recipe</button>
                     </div>
                 )) : <div>Loading...</div>}
         </div>
