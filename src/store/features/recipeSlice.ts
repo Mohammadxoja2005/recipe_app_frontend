@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 // axios
 import axios, { AxiosResponse } from "axios";
 // types
-import { Recipe, createRecipeType } from "../../types/Recipe";
+import { Recipe, createRecipeType, editRecipeType } from "../../types/Recipe";
 
 export const fetchAllRecipes = createAsyncThunk<Array<Recipe>>('/recipes/fetch',
     async () => {
@@ -19,6 +19,11 @@ export const fetchOneRecipe = createAsyncThunk<Array<Recipe>, string>('/recipes/
 export const postRecipe = createAsyncThunk('/recipes/create',
     (data: createRecipeType) => {
         return axios.post(`${import.meta.env.VITE_BACKEND_URL}/recipe/create`, data)
+    })
+
+export const editRecipe = createAsyncThunk('/recipes/edit',
+    (data: editRecipeType) => {
+        return axios.put(`${import.meta.env.VITE_BACKEND_URL}/recipe/edit/${data.id}`, data)
     })
 
 const initialState: { isLoading: boolean, allRecipes: Array<Recipe>, singleRecipe: Array<Recipe> }
@@ -64,6 +69,16 @@ const recipe = createSlice({
             state.isLoading = false;
         });
         builder.addCase(postRecipe.rejected, (state) => {
+            state.isLoading = false;
+        });
+
+        builder.addCase(editRecipe.pending, (state) => {
+            state.isLoading = true;
+        });
+        builder.addCase(editRecipe.fulfilled, (state) => {
+            state.isLoading = false;
+        });
+        builder.addCase(editRecipe.rejected, (state) => {
             state.isLoading = false;
         });
     }
