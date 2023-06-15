@@ -48,7 +48,7 @@ const RecipeForm: FC = () => {
                     <label className={styles.label}>Ingredients (separated by comma):</label>
                     <input type="text" value={ingredients} onChange={(e) => setIngredients(e.target.value)} className={styles.input} />
                 </div>
-                <button type="submit" className={styles.button}>Create Recipe</button>
+                <button type="submit" className={styles.button}>Edit Recipe</button>
             </form>
         </div>
     )

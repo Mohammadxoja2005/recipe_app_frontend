@@ -20,7 +20,7 @@ export const routes = createBrowserRouter([
         element: <RecipeCreatePage />
     },
     {
-        path: "/edit",
+        path: "/edit/:id",
         element: <RecipeEditPage />
     }
 ]) 

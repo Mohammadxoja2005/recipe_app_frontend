@@ -37,6 +37,7 @@ const RecipeCard: FC = () => {
 
                         </p>
                         <button onClick={() => navigate(`/detail/${recipe.id}`)} className={styles.viewRecipeButton}>View Recipe</button>
+                        <button onClick={() => navigate(`/edit/${recipe.id}`)} className={styles.viewRecipeButton}>Edit Recipe</button>
                     </div>
                 )) : <div>Loading...</div>}
         </div>
