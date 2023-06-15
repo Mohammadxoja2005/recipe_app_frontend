@@ -38,7 +38,9 @@ const RecipeForm: FC = () => {
             setDescription(recipe.description)
             setImage(recipe.img)
             setCookTime(recipe.cook_time)
-            setIngredients(recipe.ingredients)
+            const recipeIngredient = recipe.ingredients.slice(1, -1)
+            console.log(recipeIngredient)
+            setIngredients(recipeIngredient)
         })
 
     }, [recipeSingleData])
