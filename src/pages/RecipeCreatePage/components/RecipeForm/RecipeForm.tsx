@@ -1,28 +1,26 @@
 import { FC, useState, ChangeEvent } from 'react'
 // styles
 import styles from "./index.module.css"
+// react-redux
+import { useSelector, useDispatch } from 'react-redux';
+import { postRecipe } from '../../../../store/features/recipeSlice';
+import { Dispatch } from "redux";
+
 const RecipeForm: FC = () => {
-    const [name, setName] = useState('');
-    const [description, setDescription] = useState('');
-    const [image, setImage] = useState('');
-    const [cookTime, setCookTime] = useState('');
-    const [ingredients, setIngredients] = useState('');
+    const dispatch: Dispatch<any> = useDispatch()
+    const [name, setName] = useState<string>('');
+    const [description, setDescription] = useState<string>('');
+    const [image, setImage] = useState<string>('');
+    const [cookTime, setCookTime] = useState<string>('');
+    const [ingredients, setIngredients] = useState<string>('');
 
     const handleSubmit = (e: ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        // Send the form data to the backend API
-        // const formData = {
-        //     name,
-        //     description,
-        //     image,
-        //     cookTime,
-        //     ingredients: ingredients.split(',').map((ingredient) => ingredient.trim()),
-        // };
-
-        // Your API request logic here to send the formData to the backend
-        // Example: axios.post('/api/recipes', formData)
+        dispatch(postRecipe({ img: image, name, description, ingredients, cook_time: cookTime }))
     };
+
+    const isLoading: boolean = useSelector((state: any) => state.recipe.isLoading);
 
     return (
         <div>
@@ -45,9 +43,15 @@ const RecipeForm: FC = () => {
                 </div>
                 <div>
                     <label className={styles.label}>Ingredients (separated by comma):</label>
-                    <input type="text" value={ingredients} onChange={(e) => setIngredients(e.target.value)} className={styles.input} />
+                    <input placeholder='salt, water, ...' type="text" value={ingredients} onChange={(e) => setIngredients(e.target.value)} className={styles.input} />
                 </div>
-                <button type="submit" className={styles.button}>Create Recipe</button>
+
+                {isLoading ?
+                    <button className={styles.button}>Sending data...</button>
+                    :
+                    <button type="submit" className={styles.button}>Create Recipe</button>
+                }
+
             </form>
         </div>
     )

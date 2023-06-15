@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 // axios
 import axios, { AxiosResponse } from "axios";
 // types
-import { Recipe } from "../../types/Recipe";
+import { Recipe, createRecipeType } from "../../types/Recipe";
 
 export const fetchAllRecipes = createAsyncThunk<Array<Recipe>>('/recipes/fetch',
     async () => {
@@ -14,6 +14,11 @@ export const fetchOneRecipe = createAsyncThunk<Array<Recipe>, string>('/recipes/
     async (id) => {
         const response: AxiosResponse<Array<Recipe>> = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/recipe/${id}`)
         return response.data;
+    })
+
+export const postRecipe = createAsyncThunk('/recipes/create',
+    (data: createRecipeType) => {
+        return axios.post(`${import.meta.env.VITE_BACKEND_URL}/recipe/create`, data)
     })
 
 const initialState: { isLoading: boolean, allRecipes: Array<Recipe>, singleRecipe: Array<Recipe> }
@@ -50,6 +55,16 @@ const recipe = createSlice({
         });
         builder.addCase(fetchOneRecipe.rejected, (state) => {
             state.isLoading = true;
+        });
+
+        builder.addCase(postRecipe.pending, (state) => {
+            state.isLoading = true;
+        });
+        builder.addCase(postRecipe.fulfilled, (state) => {
+            state.isLoading = false;
+        });
+        builder.addCase(postRecipe.rejected, (state) => {
+            state.isLoading = false;
         });
     }
 })
