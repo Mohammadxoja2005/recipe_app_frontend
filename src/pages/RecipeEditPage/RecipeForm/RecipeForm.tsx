@@ -27,7 +27,7 @@ const RecipeForm: FC = () => {
     }, [])
 
     const recipeSingleData: Array<editRecipeType> = useSelector((state: any) => state.recipe.singleRecipe);
-    const isLoading: boolean = useSelector((state: any) => state.recipe.isLoading);
+    const isLoading: boolean = useSelector((state: any) => state.recipe.isLoadingEditData);
 
     useEffect(() => {
         if (!recipeSingleData && !id) return;
@@ -42,8 +42,6 @@ const RecipeForm: FC = () => {
         })
 
     }, [recipeSingleData])
-
-    console.log(ingredients)
 
     const handleSubmit = (e: ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();

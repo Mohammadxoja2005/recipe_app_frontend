@@ -26,9 +26,10 @@ export const editRecipe = createAsyncThunk('/recipes/edit',
         return axios.put(`${import.meta.env.VITE_BACKEND_URL}/recipe/edit/${data.id}`, data)
     })
 
-const initialState: { isLoading: boolean, allRecipes: Array<Recipe>, singleRecipe: Array<Recipe> }
+const initialState: { isLoading: boolean, isLoadingEditData: boolean, allRecipes: Array<Recipe>, singleRecipe: Array<Recipe> }
     = {
     isLoading: false,
+    isLoadingEditData: false,
     allRecipes: [],
     singleRecipe: []
 }
@@ -73,13 +74,13 @@ const recipe = createSlice({
         });
 
         builder.addCase(editRecipe.pending, (state) => {
-            state.isLoading = true;
+            state.isLoadingEditData = true;
         });
         builder.addCase(editRecipe.fulfilled, (state) => {
-            state.isLoading = false;
+            state.isLoadingEditData = false;
         });
         builder.addCase(editRecipe.rejected, (state) => {
-            state.isLoading = false;
+            state.isLoadingEditData = false;
         });
     }
 })

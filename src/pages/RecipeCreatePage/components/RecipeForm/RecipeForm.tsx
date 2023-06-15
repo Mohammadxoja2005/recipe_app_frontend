@@ -18,6 +18,14 @@ const RecipeForm: FC = () => {
         e.preventDefault();
 
         dispatch(postRecipe({ img: image, name, description, ingredients, cook_time: cookTime }))
+
+        if (!isLoading) {
+            setName('')
+            setImage('')
+            setDescription('')
+            setCookTime('')
+            setIngredients('')
+        }
     };
 
     const isLoading: boolean = useSelector((state: any) => state.recipe.isLoading);
