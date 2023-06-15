@@ -1,31 +1,43 @@
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 // styles 
 import styles from "./index.module.css";
+// react-redux
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchAllRecipes } from '../../../../store/features/recipeSlice';
+// types
+import { Recipe } from '../../../../types/Recipe';
+import { Dispatch } from 'redux';
 
 const RecipeCard: FC = () => {
+    const dispatch: Dispatch<any> = useDispatch();
 
-    const recipes = [
-        { id: 1, name: 'Recipe 1', cookTime: 30 },
-        { id: 2, name: 'Recipe 2', cookTime: 45 },
-        { id: 3, name: 'Recipe 3', cookTime: 60 },
-    ];
+    useEffect(() => {
+        dispatch(fetchAllRecipes())
+    }, [])
+
+    const allRecipes: Array<Recipe> = useSelector((state: any) => state.recipe.allRecipes);
+    const isLoading: boolean = useSelector((state: any) => state.recipe.isLoading);
+
+    console.log(isLoading)
 
     return (
         <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4`}>
-            {recipes.map((recipe) => (
-                <div key={recipe.id} className={styles.recipeCard}>
-                    <img
-                        src="recipe-image.jpg"
-                        alt={recipe.name}
-                        className={styles.recipeImage}
-                    />
-                    <h2 className={styles.recipeName}>{recipe.name}</h2>
-                    <p className={styles.recipeDetails}>
-                        Time: {recipe.cookTime} minutes
-                    </p>
-                    <button className={styles.viewRecipeButton}>View Recipe</button>
-                </div>
-            ))}
+            {!isLoading ?
+                allRecipes.map((recipe) => (
+                    <div key={recipe.id} className={styles.recipeCard}>
+                        <img
+                            src={`${recipe.img}`}
+                            alt={recipe.name}
+                            className={styles.recipeImage}
+                        />
+                        <h2 className={styles.recipeName}>{recipe.name}</h2>
+                        <p className={styles.recipeDetails}>
+                            Time: {recipe.cook_time}
+
+                        </p>
+                        <button className={styles.viewRecipeButton}>View Recipe</button>
+                    </div>
+                )) : <div>Loading...</div>}
         </div>
     )
 }
