@@ -38,12 +38,12 @@ const RecipeForm: FC = () => {
             setDescription(recipe.description)
             setImage(recipe.img)
             setCookTime(recipe.cook_time)
-            const recipeIngredient = recipe.ingredients.slice(1, -1)
-            console.log(recipeIngredient)
-            setIngredients(recipeIngredient)
+            setIngredients(recipe.ingredients.join(","))
         })
 
     }, [recipeSingleData])
+
+    console.log(ingredients)
 
     const handleSubmit = (e: ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();

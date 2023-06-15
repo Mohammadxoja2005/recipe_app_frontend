@@ -20,6 +20,6 @@ export interface editRecipeType {
     img: string,
     name: string,
     description: string,
-    ingredients: string,
+    ingredients: any,
     cook_time: string
 } 
