@@ -23,7 +23,7 @@ const RecipeCard: FC = () => {
 
     const allRecipes: Array<Recipe> = useSelector((state: any) => state.recipe.allRecipes);
     const isLoading: boolean = useSelector((state: any) => state.recipe.isLoading);
-    const isDeleteLoading: boolean = useSelector((state: any) => state.recipe.isDeleteLoading);
+    // const isDeleteLoading: boolean = useSelector((state: any) => state.recipe.isDeleteLoading);
 
     return (
         <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4`}>
