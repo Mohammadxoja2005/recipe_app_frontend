@@ -3,7 +3,7 @@ import { FC, useEffect } from 'react'
 import styles from "./index.module.css";
 // redux-toolkit
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchOneRecipe } from '../../../../store/features/recipeSlice';
+import { fetchOneRecipe, fetchAllCommments } from '../../../../store/features/recipeSlice';
 // types
 import { Recipe } from '../../../../types/Recipe';
 import { CommentsType } from '../../../../types/Comments';
@@ -23,11 +23,18 @@ const RecipeSingle: FC = () => {
         dispatch(fetchOneRecipe(id))
     }, [])
 
+    const isCommentLoading: boolean = useSelector((state: any) => state.recipe.isCommentLoading);
     const singleRecipe: Array<Recipe> = useSelector((state: any) => state.recipe.singleRecipe)
     const isLoading: boolean = useSelector((state: any) => state.recipe.isLoading);
     const comments: Array<CommentsType> = useSelector((state: any) => state.recipe.comments)
 
-    console.log(comments)
+    useEffect(() => {
+        if (!id) return;
+
+        dispatch(fetchAllCommments(id))
+
+    }, [isCommentLoading])
+
 
     return (
         <>
@@ -49,11 +56,12 @@ const RecipeSingle: FC = () => {
                                 </ul>
                             </div>
                             <p className={styles.cookTime}>Cook Time: {recipe.cook_time}</p>
+                            <RecipeComment />
 
                             <div className={styles.comments}>
                                 <h3 className={`mb-4`}>Comments:</h3>
                                 {comments.length > 0 ? (
-                                    comments.map((comment) => (
+                                    [...comments].reverse().map((comment) => (
                                         <div key={comment.id} className={styles.comment}>
                                             <p>{comment.comment}</p>
                                         </div>
@@ -62,7 +70,6 @@ const RecipeSingle: FC = () => {
                                     <p>No comments yet.</p>
                                 )}
                             </div>
-                            <RecipeComment />
                         </div>
 
                     )

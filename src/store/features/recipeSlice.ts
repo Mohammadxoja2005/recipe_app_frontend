@@ -3,20 +3,27 @@ import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios, { AxiosResponse } from "axios";
 // types
 import { Recipe, createRecipeType, editRecipeType } from "../../types/Recipe";
-import { CommentsType } from "../../types/Comments";
+import { CommentsType, CreateCommentsType } from "../../types/Comments";
 
-export const fetchAllRecipes = createAsyncThunk<Array<Recipe>>('/recipes/fetch',
-    async () => {
-        const response: AxiosResponse<Array<Recipe>> = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/recipe`)
+export const fetchAllRecipes = createAsyncThunk<Array<Recipe>, string>('/recipes/fetch',
+    async (sortOrder: string) => {
+
+        console.log('some sort order in slice', sortOrder);
+
+        const response: AxiosResponse<Array<Recipe>> = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/recipe/${sortOrder}`)
         return response.data;
     })
 
 export const fetchAllCommments = createAsyncThunk('/comments/fetch',
-    async (id: number) => {
+    async (id: string) => {
         const response: AxiosResponse<Array<CommentsType>> = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/comment/${id}`)
         return response.data;
     })
 
+export const postCommment = createAsyncThunk('/comments/create',
+    async (data: CreateCommentsType) => {
+        return axios.post(`${import.meta.env.VITE_BACKEND_URL}/comment/create/${data.id}`, data)
+    })
 
 export const fetchOneRecipe = createAsyncThunk<Array<Recipe>, string>('/recipes/detail/fetch',
     async (id) => {
@@ -44,6 +51,8 @@ export const deleteRecipe = createAsyncThunk('/recipes/delete',
 const initialState: {
     isLoading: boolean,
     isLoadingEditData: boolean,
+    isCommentLoading: boolean,
+    recipeSortOrder: string,
     allRecipes: Array<Recipe>,
     singleRecipe: Array<Recipe>,
     comments: Array<CommentsType>
@@ -51,6 +60,8 @@ const initialState: {
     = {
     isLoading: false,
     isLoadingEditData: false,
+    isCommentLoading: false,
+    recipeSortOrder: "increase",
     allRecipes: [],
     singleRecipe: [],
     comments: []
@@ -60,7 +71,9 @@ const recipe = createSlice({
     name: "recipe",
     initialState,
     reducers: {
-
+        changeSortOrder(state, action) {
+            state.recipeSortOrder = action.payload
+        }
     },
     extraReducers: (builder) => {
         builder.addCase(fetchAllRecipes.pending, (state) => {
@@ -127,8 +140,20 @@ const recipe = createSlice({
         builder.addCase(fetchAllCommments.rejected, (state) => {
             state.isLoading = false;
         });
+
+
+        builder.addCase(postCommment.pending, (state) => {
+            state.isCommentLoading = true;
+        });
+        builder.addCase(postCommment.fulfilled, (state) => {
+            state.isCommentLoading = false;
+        });
+        builder.addCase(postCommment.rejected, (state) => {
+            state.isCommentLoading = false;
+        });
+
     }
 })
 
-export const { } = recipe.actions;
+export const { changeSortOrder } = recipe.actions;
 export default recipe.reducer;

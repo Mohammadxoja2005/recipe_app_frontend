@@ -5,9 +5,14 @@ import RecipeDetailsPage from "../pages/RecipeDetailsPage/RecipeDetailsPage";
 import RecipeCreatePage from "../pages/RecipeCreatePage/RecipeCreatePage";
 import RecipeEditPage from "../pages/RecipeEditPage/RecipeEditPage";
 
-export const routes = createBrowserRouter([
+export const routes = createBrowserRouter([ 
     {
         path: "/",
+        element: <RecipeMainPage />
+
+    },
+    {
+        path: "/:order",
         element: <RecipeMainPage />
 
     },

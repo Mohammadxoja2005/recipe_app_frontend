@@ -3,15 +3,24 @@ import { FC, useState, ChangeEvent } from 'react'
 import styles from "./index.module.css";
 // react-router-dom
 import { useNavigate } from 'react-router-dom';
+// react-redux
+import { useDispatch } from 'react-redux';
+import { changeSortOrder } from '../../../../store/features/recipeSlice';
+import { Dispatch } from 'redux';
 
 const ReciperFIlter: FC = () => {
     const navigate = useNavigate();
+    const dispatch: Dispatch<any> = useDispatch();
     const [searchQuery, setSearchQuery] = useState('');
     // const [sortOption, setSortOption] = useState('');
 
     const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
         setSearchQuery(event.target.value);
     };
+
+    // useEffect(() => {
+    //     navigate('/increasing')
+    // }, [navigate])
 
     // const handleSortChange = (event: ChangeEvent<HTMLSelectElement>) => {
     //     setSortOption(event.target.value);
@@ -32,15 +41,14 @@ const ReciperFIlter: FC = () => {
             <div>
                 <button onClick={() => navigate(`/create`)} className={styles.viewRecipeButton}>Create Recipe</button>
 
-                {/* <select
+                <select
                     className={styles.selectInput}
-                    value={sortOption}
-                    onChange={handleSortChange}
+                    onChange={(e: ChangeEvent<HTMLSelectElement>) => dispatch(changeSortOrder(e.target.value))}
                 >
-                    <option value="">Sort by</option>
-                    <option value="name">Name</option>
-                    <option value="cookTime">Cooking Time</option>
-                </select> */}
+                    {/* <option value="">Sort by</option> */}
+                    <option value="increase">increasing order</option>
+                    <option value="decrease">descending order</option>
+                </select>
             </div>
         </div>
     )

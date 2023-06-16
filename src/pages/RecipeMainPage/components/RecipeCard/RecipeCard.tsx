@@ -14,9 +14,11 @@ const RecipeCard: FC = () => {
     const dispatch: Dispatch<any> = useDispatch();
     const navigate = useNavigate();
 
+    const sortOrder: string = useSelector((state: any) => state.recipe.recipeSortOrder);
+
     useEffect(() => {
-        dispatch(fetchAllRecipes())
-    }, [])
+        dispatch(fetchAllRecipes(sortOrder))
+    }, [sortOrder])
 
     const allRecipes: Array<Recipe> = useSelector((state: any) => state.recipe.allRecipes);
     const isLoading: boolean = useSelector((state: any) => state.recipe.isLoading);
