@@ -10,7 +10,7 @@ export const fetchAllRecipes = createAsyncThunk<Array<Recipe>, string>('/recipes
 
         console.log('some sort order in slice', sortOrder);
 
-        const response: AxiosResponse<Array<Recipe>> = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/recipe/${sortOrder}`)
+        const response: AxiosResponse<Array<Recipe>> = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/recipe/sort/${sortOrder}`)
         return response.data;
     })
 
@@ -27,7 +27,9 @@ export const postCommment = createAsyncThunk('/comments/create',
 
 export const fetchOneRecipe = createAsyncThunk<Array<Recipe>, string>('/recipes/detail/fetch',
     async (id) => {
+        console.log(id)
         const response: AxiosResponse<Array<Recipe>> = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/recipe/${id}`)
+        console.log('response', response)
         return response.data;
     })
 
