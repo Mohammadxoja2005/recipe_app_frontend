@@ -43,15 +43,17 @@ export const editRecipe = createAsyncThunk('/recipes/edit',
 export const deleteRecipe = createAsyncThunk('/recipes/delete',
     (id: number) => {
         console.log(id);
-        return axios.delete(`${import.meta.env.VITE_BACKEND_URL}/recipe/delete/${id}`).then((response) => {
-            console.log(response)
-        })
+        return axios.delete(`${import.meta.env.VITE_BACKEND_URL}/recipe/delete/${id}`)
+            .then(() => {
+                window.location.reload();
+            })
     })
 
 const initialState: {
     isLoading: boolean,
     isLoadingEditData: boolean,
     isCommentLoading: boolean,
+    isDeleteLoading: boolean,
     recipeSortOrder: string,
     searchInput: string,
     allRecipes: Array<Recipe>,
@@ -62,6 +64,7 @@ const initialState: {
     isLoading: false,
     isLoadingEditData: false,
     isCommentLoading: false,
+    isDeleteLoading: false,
     recipeSortOrder: "increase",
     searchInput: "",
     allRecipes: [],
@@ -126,13 +129,14 @@ const recipe = createSlice({
 
 
         builder.addCase(deleteRecipe.pending, (state) => {
-            state.isLoading = true;
+            state.isDeleteLoading = true;
         });
+
         builder.addCase(deleteRecipe.fulfilled, (state) => {
-            state.isLoading = false;
+            state.isDeleteLoading = false;
         });
         builder.addCase(deleteRecipe.rejected, (state) => {
-            state.isLoading = false;
+            state.isDeleteLoading = true;
         });
 
 

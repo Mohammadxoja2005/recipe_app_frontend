@@ -23,6 +23,7 @@ const RecipeCard: FC = () => {
 
     const allRecipes: Array<Recipe> = useSelector((state: any) => state.recipe.allRecipes);
     const isLoading: boolean = useSelector((state: any) => state.recipe.isLoading);
+    const isDeleteLoading: boolean = useSelector((state: any) => state.recipe.isDeleteLoading);
 
     return (
         <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4`}>
@@ -43,7 +44,6 @@ const RecipeCard: FC = () => {
                         <button onClick={() => navigate(`/edit/${recipe.id}`)} className={styles.viewRecipeButton}>Edit Recipe</button>
                         <button onClick={() => {
                             dispatch(deleteRecipe(recipe.id))
-                            window.location.reload();
                         }} className={styles.deleteRecipeButton}>Delete Recipe</button>
                     </div>
                 )) : <div>Loading...</div>}
