@@ -5,12 +5,9 @@ import axios, { AxiosResponse } from "axios";
 import { Recipe, createRecipeType, editRecipeType } from "../../types/Recipe";
 import { CommentsType, CreateCommentsType } from "../../types/Comments";
 
-export const fetchAllRecipes = createAsyncThunk<Array<Recipe>, string>('/recipes/fetch',
-    async (sortOrder: string) => {
-
-        console.log('some sort order in slice', sortOrder);
-
-        const response: AxiosResponse<Array<Recipe>> = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/recipe/sort/${sortOrder}`)
+export const fetchAllRecipes = createAsyncThunk<Array<Recipe>, { sortOrder: string, searchInput: string }>('/recipes/fetch',
+    async ({ sortOrder, searchInput }) => {
+        const response: AxiosResponse<Array<Recipe>> = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/recipe/search?q=${searchInput}&&order=${sortOrder}`)
         return response.data;
     })
 
@@ -55,6 +52,7 @@ const initialState: {
     isLoadingEditData: boolean,
     isCommentLoading: boolean,
     recipeSortOrder: string,
+    searchInput: string,
     allRecipes: Array<Recipe>,
     singleRecipe: Array<Recipe>,
     comments: Array<CommentsType>
@@ -64,6 +62,7 @@ const initialState: {
     isLoadingEditData: false,
     isCommentLoading: false,
     recipeSortOrder: "increase",
+    searchInput: "",
     allRecipes: [],
     singleRecipe: [],
     comments: []
@@ -75,6 +74,10 @@ const recipe = createSlice({
     reducers: {
         changeSortOrder(state, action) {
             state.recipeSortOrder = action.payload
+        },
+
+        setRecipeSearch(state, action) {
+            state.searchInput = action.payload
         }
     },
     extraReducers: (builder) => {
@@ -157,5 +160,5 @@ const recipe = createSlice({
     }
 })
 
-export const { changeSortOrder } = recipe.actions;
+export const { changeSortOrder, setRecipeSearch } = recipe.actions;
 export default recipe.reducer;

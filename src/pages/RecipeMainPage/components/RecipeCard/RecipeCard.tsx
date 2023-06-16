@@ -15,10 +15,11 @@ const RecipeCard: FC = () => {
     const navigate = useNavigate();
 
     const sortOrder: string = useSelector((state: any) => state.recipe.recipeSortOrder);
+    const searchInput: string = useSelector((state: any) => state.recipe.searchInput)
 
     useEffect(() => {
-        dispatch(fetchAllRecipes(sortOrder))
-    }, [sortOrder])
+        dispatch(fetchAllRecipes({ sortOrder, searchInput }))
+    }, [sortOrder, searchInput])
 
     const allRecipes: Array<Recipe> = useSelector((state: any) => state.recipe.allRecipes);
     const isLoading: boolean = useSelector((state: any) => state.recipe.isLoading);

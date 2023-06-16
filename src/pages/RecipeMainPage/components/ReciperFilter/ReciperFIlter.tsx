@@ -5,7 +5,7 @@ import styles from "./index.module.css";
 import { useNavigate } from 'react-router-dom';
 // react-redux
 import { useDispatch } from 'react-redux';
-import { changeSortOrder } from '../../../../store/features/recipeSlice';
+import { changeSortOrder, setRecipeSearch } from '../../../../store/features/recipeSlice';
 import { Dispatch } from 'redux';
 
 const ReciperFIlter: FC = () => {
@@ -15,7 +15,8 @@ const ReciperFIlter: FC = () => {
     // const [sortOption, setSortOption] = useState('');
 
     const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
-        setSearchQuery(event.target.value);
+        setSearchQuery(event.target.value)
+        dispatch(setRecipeSearch(searchQuery));
     };
 
     // useEffect(() => {
