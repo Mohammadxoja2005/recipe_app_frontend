@@ -42,6 +42,7 @@ export const editRecipe = createAsyncThunk('/recipes/edit',
 
 export const deleteRecipe = createAsyncThunk('/recipes/delete',
     (id: number) => {
+        console.log(id);
         return axios.delete(`${import.meta.env.VITE_BACKEND_URL}/recipe/delete/${id}`).then((response) => {
             console.log(response)
         })

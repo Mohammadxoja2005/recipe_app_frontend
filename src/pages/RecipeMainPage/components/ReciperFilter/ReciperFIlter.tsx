@@ -1,4 +1,4 @@
-import { FC, useState, ChangeEvent } from 'react'
+import { FC, ChangeEvent } from 'react'
 // styles
 import styles from "./index.module.css";
 // react-router-dom
