@@ -1,0 +1,15 @@
+/* Comment Form */
+.commentForm {
+  /* Tailwind CSS classes */
+  @apply mt-8;
+}
+
+.commentInput {
+  /* Tailwind CSS classes */
+  @apply w-full p-2 border border-gray-300 rounded-lg;
+}
+
+.commentSubmitBtn {
+  /* Tailwind CSS classes */
+  @apply mt-2 px-4 py-2 bg-blue-500 text-white rounded-lg cursor-pointer;
+}

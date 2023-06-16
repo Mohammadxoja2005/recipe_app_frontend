@@ -3,12 +3,20 @@ import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios, { AxiosResponse } from "axios";
 // types
 import { Recipe, createRecipeType, editRecipeType } from "../../types/Recipe";
+import { CommentsType } from "../../types/Comments";
 
 export const fetchAllRecipes = createAsyncThunk<Array<Recipe>>('/recipes/fetch',
     async () => {
         const response: AxiosResponse<Array<Recipe>> = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/recipe`)
         return response.data;
     })
+
+export const fetchAllCommments = createAsyncThunk('/comments/fetch',
+    async (id: number) => {
+        const response: AxiosResponse<Array<CommentsType>> = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/comment/${id}`)
+        return response.data;
+    })
+
 
 export const fetchOneRecipe = createAsyncThunk<Array<Recipe>, string>('/recipes/detail/fetch',
     async (id) => {
@@ -33,12 +41,19 @@ export const deleteRecipe = createAsyncThunk('/recipes/delete',
         })
     })
 
-const initialState: { isLoading: boolean, isLoadingEditData: boolean, allRecipes: Array<Recipe>, singleRecipe: Array<Recipe> }
+const initialState: {
+    isLoading: boolean,
+    isLoadingEditData: boolean,
+    allRecipes: Array<Recipe>,
+    singleRecipe: Array<Recipe>,
+    comments: Array<CommentsType>
+}
     = {
     isLoading: false,
     isLoadingEditData: false,
     allRecipes: [],
-    singleRecipe: []
+    singleRecipe: [],
+    comments: []
 }
 
 const recipe = createSlice({
@@ -98,6 +113,18 @@ const recipe = createSlice({
             state.isLoading = false;
         });
         builder.addCase(deleteRecipe.rejected, (state) => {
+            state.isLoading = false;
+        });
+
+
+        builder.addCase(fetchAllCommments.pending, (state) => {
+            state.isLoading = true;
+        });
+        builder.addCase(fetchAllCommments.fulfilled, (state, action: PayloadAction<Array<CommentsType>>) => {
+            state.isLoading = false;
+            state.comments = action.payload
+        });
+        builder.addCase(fetchAllCommments.rejected, (state) => {
             state.isLoading = false;
         });
     }

@@ -6,9 +6,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchOneRecipe } from '../../../../store/features/recipeSlice';
 // types
 import { Recipe } from '../../../../types/Recipe';
+import { CommentsType } from '../../../../types/Comments';
 import { Dispatch } from 'redux';
 // react-router
 import { useParams } from 'react-router-dom';
+// components
+import RecipeComment from '../RecipeComment/RecipeComment';
 
 const RecipeSingle: FC = () => {
     const dispatch: Dispatch<any> = useDispatch();
@@ -22,6 +25,9 @@ const RecipeSingle: FC = () => {
 
     const singleRecipe: Array<Recipe> = useSelector((state: any) => state.recipe.singleRecipe)
     const isLoading: boolean = useSelector((state: any) => state.recipe.isLoading);
+    const comments: Array<CommentsType> = useSelector((state: any) => state.recipe.comments)
+
+    console.log(comments)
 
     return (
         <>
@@ -43,7 +49,22 @@ const RecipeSingle: FC = () => {
                                 </ul>
                             </div>
                             <p className={styles.cookTime}>Cook Time: {recipe.cook_time}</p>
+
+                            <div className={styles.comments}>
+                                <h3 className={`mb-4`}>Comments:</h3>
+                                {comments.length > 0 ? (
+                                    comments.map((comment) => (
+                                        <div key={comment.id} className={styles.comment}>
+                                            <p>{comment.comment}</p>
+                                        </div>
+                                    ))
+                                ) : (
+                                    <p>No comments yet.</p>
+                                )}
+                            </div>
+                            <RecipeComment />
                         </div>
+
                     )
                 })
                 : <div>Loading...</div>}

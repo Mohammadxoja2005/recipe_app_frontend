@@ -25,3 +25,15 @@
 .cookTime {
   @apply mt-20;
 }
+
+.comments {
+  /* Tailwind CSS classes */
+  @apply mt-8;
+}
+
+/* Comment */
+.comment {
+  /* Tailwind CSS classes */
+  @apply bg-white p-4 my-4 rounded-lg shadow-md;
+}
+
