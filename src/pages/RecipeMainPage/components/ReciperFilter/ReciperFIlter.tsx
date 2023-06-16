@@ -7,25 +7,16 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { changeSortOrder, setRecipeSearch } from '../../../../store/features/recipeSlice';
 import { Dispatch } from 'redux';
+// lodash
+import { debounce } from 'lodash';
 
 const ReciperFIlter: FC = () => {
     const navigate = useNavigate();
     const dispatch: Dispatch<any> = useDispatch();
-    const [searchQuery, setSearchQuery] = useState('');
-    // const [sortOption, setSortOption] = useState('');
 
-    const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
-        setSearchQuery(event.target.value)
-        dispatch(setRecipeSearch(searchQuery));
-    };
-
-    // useEffect(() => {
-    //     navigate('/increasing')
-    // }, [navigate])
-
-    // const handleSortChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    //     setSortOption(event.target.value);
-    // };
+    const debouncedSearch = debounce((e: ChangeEvent<HTMLInputElement>) => {
+        dispatch(setRecipeSearch(e.target.value));
+    }, 500);
 
     return (
 
@@ -35,8 +26,7 @@ const ReciperFIlter: FC = () => {
                     type="text"
                     placeholder="Search..."
                     className={styles.searchInput}
-                    value={searchQuery}
-                    onChange={handleSearchChange}
+                    onChange={debouncedSearch}
                 />
             </div>
             <div>
@@ -46,7 +36,6 @@ const ReciperFIlter: FC = () => {
                     className={styles.selectInput}
                     onChange={(e: ChangeEvent<HTMLSelectElement>) => dispatch(changeSortOrder(e.target.value))}
                 >
-                    {/* <option value="">Sort by</option> */}
                     <option value="increase">increasing order</option>
                     <option value="decrease">descending order</option>
                 </select>
